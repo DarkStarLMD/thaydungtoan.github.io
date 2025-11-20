@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiệp 20/11 Thầy Dũng</title>
+  <link rel="icon" type="image/x-icon" href="Icon.ico">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      overflow-y: auto;
+      padding: 20px 0;
+    }
+    .card {
+      width: 600px;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      animation: fadeIn 1.2s ease;
+      margin: 20px 0;
+      /* Quan trọng: cho phép card co giãn theo nội dung */
+      min-height: auto;
+      height: auto;
+      overflow: visible;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      color: #d35400;
+      font-size: 30px;
+      margin-bottom: 10px;
+      margin: 0 0 15px 0;
+      padding: 0;
+      border: none;
+    }
+    p {
+      font-size: 36px;
+      color: #555;
+      font-family: 'MTD Berliana Monoline';
+      src: url('MTD Berliana Monoline.otf') format('woff2');
+      margin: 0;
+      padding: 0;
+      border: none;
+      line-height: 1.4;
+      /* Quan trọng: cho phép đoạn văn chiếm không gian */
+      display: block;
+      width: 100%;
+    }
+    .img-box {
+      margin: 20px auto;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .img-box img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .img-box img:hover {
+      transform: scale(1.02);
+    }
+    .heart {
+      position: absolute;
+      color: red;
+      font-size: 20px;
+      animation: floatUp 4s infinite ease-in;
+    }
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      50% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-80px); }
+    }
+    
+    /* Overlay phóng to ảnh */
+    .image-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .image-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    }
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .close-btn:hover {
+      background: white;
+      transform: scale(1.1);
+    }
+
+    /* Hộp quà - responsive */
+    #gift-box {
+      position: relative;
+      margin: 30px auto 20px auto;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    #gift-box img {
+      width: 150px;
+      transition: 0.4s;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+    }
+
+    #gift-box p {
+      font-size: 30px;
+      color: #b33939;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* Container để bao bọc card và hộp quà */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Chúc Mừng Ngày Nhà Giáo Việt Nam <br> 20 - 11</h1>
+      <p>Em xin gửi lời cảm ơn chân thành nhất đến thầy vì những kiến thức và sự tận tâm của thầy dành cho em. Thầy là người đã truyền cảm hứng và dẫn đường cho em rất nhiều trong 3 năm vừa qua<br>Em chúc thầy luôn luôn mạnh khỏe, trẻ mãi không già và hạnh phúc để có thể tiếp tục dẫn dắt chúng em cũng như các thế hệ Hoài Đức sau trên con đường sắp tới! </p>
+
+      <div class="img-box">
+        <!-- Thay link ảnh thầy/cô vào đây -->
+        <img src="ThayDung.jpg" alt="Hình minh họa" onclick="expandImage(this)">
+      </div>
+    </div>
+
+    <!-- Di chuyển hộp quà vào trong container -->
+    <div id="gift-box">
+      <img id="gift-img" src="HopQua.png">
+      <p>Bấm để mở quà</p>
+    </div>
+  </div>
+
+  <!-- Overlay phóng to ảnh -->
+  <div class="image-overlay" id="imageOverlay" onclick="closeImage()">
+    <img src="" alt="Ảnh phóng to" id="expandedImage">
+    <button class="close-btn" onclick="closeImage()">✕</button>
+  </div>
+
+  <script>
+  // Phát nhạc tự động khi trang load
+    window.addEventListener('load', function() {
+      const audio = document.getElementById('bgm');
+      
+      // Thử phát nhạc
+      const playAudio = () => {
+        audio.play().then(() => {
+          console.log('Nhạc đang phát');
+        }).catch(error => {
+          console.log('Lỗi phát nhạc:', error);
+          // Thử lại sau 1 giây
+          setTimeout(playAudio, 1000);
+        });
+      };
+      
+      playAudio();
+    });
+	
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '❤';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.bottom = '-20px';
+      heart.style.fontSize = 15 + Math.random() * 25 + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+    setInterval(createHeart, 500);
+    
+    // Hàm phóng to ảnh
+    function expandImage(img) {
+      const expandedImage = document.getElementById('expandedImage');
+      const overlay = document.getElementById('imageOverlay');
+      
+      expandedImage.src = img.src;
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Hàm đóng ảnh phóng to
+    function closeImage() {
+      const overlay = document.getElementById('imageOverlay');
+      overlay.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Đóng ảnh khi nhấn ESC
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeImage();
+      }
+    });
+	
+  </script>
+  <!-- Nhạc nền -->
+  <audio id="bgm" src="nguoigieomamxanh.mp3" loop></audio>
+
+  <script>
+    // Hiệu ứng mở quà đẹp hơn
+    document.getElementById('gift-box').onclick = () => {
+      const gift = document.getElementById('gift-img');
+      gift.style.transform = 'rotate(-20deg) scale(1.2)';
+      setTimeout(() => {
+        gift.src = 'HopQua1.png';
+        gift.style.transform = 'rotate(0deg) scale(1)';
+      }, 400);
+      
+      // Hiệu ứng pháo hoa
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => createFirework(), i * 120);
+      }
+
+      setTimeout(() => {
+        alert('🎉 Chúc thầy 20/11 tràn đầy niềm vui và hạnh phúc!');
+      }, 1500);
+    };
+
+    function createFirework() {
+      const fw = document.createElement('div');
+      fw.textContent = '✨';
+      fw.style.position = 'absolute';
+      fw.style.left = Math.random() * window.innerWidth + 'px';
+      fw.style.top = Math.random() * window.innerHeight + 'px';
+      fw.style.fontSize = 20 + Math.random() * 30 + 'px';
+      fw.style.opacity = 1;
+      fw.style.transition = 'opacity 1s';
+      document.body.appendChild(fw);
+      setTimeout(() => fw.style.opacity = 0, 100);
+      setTimeout(() => fw.remove(), 1100);
+    }
+  </script>
+</body>
+</html>
